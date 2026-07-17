@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Baromètre des attentes en formation</title>
+
+    <!-- Bootstrap -->
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/style.css">
+
+</head>
+
+<body>
+
+<!-- ===================================================== -->
+<!-- CONTENEUR GENERAL -->
+<!-- ===================================================== -->
+
+<div class="container-fluid page-principale">
+
+    <div class="row justify-content-center">
+
+        <div class="col-xl-10 col-lg-11">
+
+            <!-- ===================================================== -->
+            <!-- BARRE DE PROGRESSION -->
+            <!-- ===================================================== -->
+
+            <div class="progress progression">
+
+                <div
+                    id="progressBar"
+                    class="progress-bar bg-primary"
+                    style="width:25%;">
+
+                    Étape 1 / 4
+
+                </div>
+
+            </div>
+
+            <!-- ===================================================== -->
+            <!-- ETAPE 1 -->
+            <!-- ===================================================== -->
+
+            <section
+                id="page1"
+                class="page active">
+
+                <div class="carte">
+
+                    <img
+                        src="image/logo-eafc.png"
+                        class="logo"
+                        alt="EAFC">
+
+                    <h1>
+
+                        Baromètre de vos attentes en formation
+
+                    </h1>
+
+                    <h2>
+
+                        EAFC Académie de Dijon
+
+                    </h2>
+
+                    <p>
+
+                        Cet outil permet d'identifier vos attentes en matière
+                        de formation afin de construire une offre répondant
+                        au plus près des réalités du terrain.
+
+                    </p>
+
+                    <button
+                        id="btnCommencer"
+                        class="btn btn-primary bouton">
+
+                        Commencer l'enquête
+
+                    </button>
+
+                </div>
+
+            </section>
+
+            <!-- ===================================================== -->
+            <!-- ETAPE 2 -->
+            <!-- ===================================================== -->
+
+            <section
+                id="page2"
+                class="page">
+
+                <div class="carte">
+
+                    <h2>
+
+                        Votre profil
+
+                    </h2>
+
+                    <br>
+
+                    <!-- Etablissement -->
+
+                    <div class="mb-4">
+
+                        <label class="form-label">
+
+                            Établissement : commencer à entrer le nom de votre établissement (sans préciser le type)
+
+                        </label>
+
+                        <label for="etablissement" class="form-label">
+
+</label>
+
+<input
+    type="text"
+    id="etablissement"
+    class="form-control"
+    placeholder="Commencez à saisir le nom de votre établissement">
+
+<div
+    id="listeEtablissements"
+    class="liste-etablissements">
+</div>
+
+                    </div>
+
+                    <!-- Sexe -->
+
+                    <div class="mb-4">
+
+                        <label class="form-label">
+
+                            Vous êtes
+
+                        </label>
+
+                        <select
+                            id="genre"
+                            class="form-select">
+
+                            <option value="">Choisir</option>
+
+                            <option>Femme</option>
+
+                            <option>Homme</option>
+
+                            <option>Je préfère ne pas répondre</option>
+
+                        </select>
+
+                    </div>
+
+                    <!-- Ancienneté -->
+
+                    <div class="mb-4">
+
+                        <label class="form-label">
+
+                            Ancienneté
+
+                        </label>
+
+                        <select
+                            id="anciennete"
+                            class="form-select">
+
+                            <option value="">Choisir</option>
+
+                            <option>Moins de 5 ans</option>
+
+                            <option>Entre 5 et 10 ans</option>
+
+                            <option>Entre 11 et 20 ans</option>
+
+                            <option>Plus de 20 ans</option>
+
+                        </select>
+
+                    </div>
+
+                    <!-- Grade -->
+
+                    <div class="mb-4">
+
+                        <label class="form-label">
+
+                            Grade
+
+                        </label>
+
+                        <select
+                            id="grade"
+                            class="form-select">
+
+                            <option value="">Choisir</option>
+
+                            <option>Attaché principal d'administration</option>
+
+                            <option>Attaché d'administration</option>
+
+                            <option>Secrétaire administratif</option>
+
+                            <option>Adjoint administratif</option>
+
+                        </select>
+
+                    </div>
+
+                    <!-- Fonction -->
+
+                    <div class="mb-4">
+
+                        <label class="form-label">
+
+                            Fonction
+
+                        </label>
+
+                        <select
+                            id="fonction"
+                            class="form-select">
+
+                            <option value="">Choisir</option>
+
+                            <option>Secrétaire administratif</option>
+
+                            <option>Secrétaire d’intendance</option>
+
+                            <option>Secrétaire général d’EPLE</option>
+
+                            <option>Fondé de pouvoir</option>
+
+                            <option>Agent comptable</option>
+
+                            <option>Chef de bureau</option>
+
+                            <option>Chef de division</option>
+
+                        </select>
+
+                    </div>
+
+                    <div class="text-end">
+
+                        <button
+                            id="versPage3"
+                            class="btn btn-primary bouton">
+
+                            Suivant
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+            <!-- ===================================================== -->
+            <!-- ETAPE 3 -->
+            <!-- ===================================================== -->
+
+            <section
+                id="page3"
+                class="page">
+
+                <div class="carte">
+
+                    <h2>
+
+                        Domaines de formation
+
+                    </h2>
+
+                    <p>
+
+                        Parmi les domaines proposés, sélectionnez un ou plusieurs domaines professionnels dans lesquels vous souhaitez développer vos compétences, approfondir vos connaissances ou pour lesquels vous rencontrez des difficultés dans votre pratique.
+
+                    </p>
+
+                    <br>
+
+                    <div id="zoneDomaines"></div>
+
+                    <h2 id="titreSituations">
+
+    Situations professionnelles
+
+</h2>
+
+                    <p>
+
+                        Sélectionnez de 1 à 5 situations professionnelles, au total, qui correspondent le mieux à vos questionnements ou aux difficultés rencontrées dans votre activité.
+
+                    </p>
+
+                    <div id="zoneCompteur"></div>
+
+<div id="zoneCompteur"></div>
+
+<div id="zoneSituations"></div>
+
+<div class="d-flex justify-content-between mt-4">
+
+    <button
+        id="retourPage2"
+        class="btn btn-secondary">
+
+        Précédent
+
+    </button>
+
+    <button
+        id="versPage4"
+        class="btn btn-primary">
+
+        Suivant
+
+    </button>
+
+</div>
+
+</div>
+
+                          </div>
+
+                </div>
+
+            </section>
+
+            <!-- ===================================================== -->
+            <!-- ETAPE 4 -->
+            <!-- ===================================================== -->
+
+          <!-- ===================================================== -->
+<!-- ETAPE 4 -->
+<!-- ===================================================== -->
+
+<section id="page4" class="page">
+
+    <div class="carte">
+
+        <h2>
+            Priorisez vos attentes en formation <span class="info-question">(Classez les situations professionnelles selon leur importance : cliquer sur la situation et la faire glisser à la place choisie)</span>
+        </h2>
+
+        <div id="listePriorites">
+
+        </div>
+
+        <hr class="my-4">
+
+        <h2>
+
+            Si vous aviez le choix, quelle(s) modalité(s) de formation privilégieriez-vous ?
+
+            <span class="info-question">(Plusieurs réponses possibles)</span>
+
+        </h2>
+
+          <div id="zoneModalites" class="mt-3">
+
+    <label class="d-block">
+
+        <input type="checkbox" value="Présentiel">
+
+        Présentiel
+
+    </label>
+
+    <label class="d-block">
+
+        <input type="checkbox" value="Hybride (présentiel + distance)">
+
+        Hybride (présentiel + distance)
+
+    </label>
+
+    <label class="d-block">
+
+        <input type="checkbox" value="À distance en autoformation">
+
+        À distance en autoformation
+
+    </label>
+
+    <label class="d-block">
+
+        <input type="checkbox" value="À distance en visio synchrone">
+
+        À distance en visio synchrone
+
+    </label>
+
+    <label class="d-block">
+
+        <input type="checkbox" value="Sans préférence">
+
+        Sans préférence
+
+    </label>
+
+</div>
+
+        <br>
+
+        <h2 id="titreMethodes">
+
+    Pour vous, quelle(s) méthode(s) pédagogique(s) favorisent le mieux vos apprentissages ? 
+    
+    <span class="info-question">(Plusieurs réponses possibles)</span>
+
+</h2>
+
+<div id="methodesPedagogiques">
+
+    <label><input type="checkbox" value="Exercices pratiques"> Exercices pratiques</label><br>
+
+    <label><input type="checkbox" value="Analyse de cas réels"> Analyse de cas réels</label><br>
+
+    <label><input type="checkbox" value="Échanges de pratiques entre professionnels"> Échanges de pratiques entre pairs</label><br>
+
+    <label><input type="checkbox" value="Apports théoriques"> Apports théoriques</label><br>
+
+    <label><input type="checkbox" value="Mises en situation"> Mises en situation</label><br>
+
+    <label><input type="checkbox" value="Travail en petits groupes"> Travail en petits groupes</label><br>
+
+    <label><input type="checkbox" value="Ressources à consulter après la formation"> Ressources à consulter après la formation</label><br>
+
+    <label>
+
+        <input
+            type="checkbox"
+            id="methodeAutre">
+
+        Autre :
+
+        <input
+            type="text"
+            id="texteAutreMethode"
+            class="form-control mt-2"
+            placeholder="Précisez">
+
+    </label>
+
+</div>
+
+<br>
+
+        <h2>
+
+            Ce questionnaire est anonyme, si vous souhaitez être recontacté, vous pouvez indiquer votre adresse mail professionnelle
+
+          </h2>
+
+        <input
+
+            id="mail"
+
+            type="email"
+
+            class="form-control"
+
+            placeholder="prenom.nom@ac-dijon.fr">
+
+        <br>
+
+        <div class="d-flex justify-content-between">
+
+            <button
+                id="retourPage3"
+                class="btn btn-secondary">
+
+                Précédent
+
+            </button>
+
+           <button
+    id="envoyerEnquete"
+    class="btn btn-primary">
+
+    Terminer
+
+</button>
+
+        </div>
+
+    </div>
+
+</section>  
+
+        </div>
+
+    </div>
+
+</div>
+
+<script src="data/situations.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.6/Sortable.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+
+<script src="js/config.js"></script>
+
+<script src="js/grist.js"></script>
+
+<script src="js/script.js"></script>
+
+</body>
+
+</html>

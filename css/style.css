@@ -1,0 +1,715 @@
+/* ==========================================================
+   LIVRAISON 1B-2A
+   STRUCTURE GÉNÉRALE DE L'APPLICATION
+========================================================== */
+
+/* ---------- Fond général ---------- */
+
+body{
+
+    margin:0;
+
+    padding:0;
+
+    background:#dfeffc;
+
+    font-family:Arial, Helvetica, sans-serif;
+
+}
+
+/* ---------- Conteneur principal ---------- */
+
+.page-principale{
+
+    min-height:100vh;
+
+    padding-top:40px;
+
+    padding-bottom:60px;
+
+}
+
+/* ---------- Pages ---------- */
+
+.page{
+
+    display:none;
+
+    animation:apparition .35s ease;
+
+}
+
+.page.active{
+
+    display:block;
+
+}
+
+/* ---------- Animation ---------- */
+
+@keyframes apparition{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(20px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
+}
+
+/* ---------- Carte principale ---------- */
+
+.carte{
+
+    background:white;
+
+    border-radius:20px;
+
+    padding:45px;
+
+    box-shadow:0 12px 35px rgba(0,0,0,.12);
+
+}
+
+/* ---------- Logo ---------- */
+
+.logo{
+
+    display:block;
+
+    width:170px;
+
+    margin:auto;
+
+    margin-bottom:30px;
+
+}
+
+/* ---------- Titre principal ---------- */
+
+h1{
+
+    color:#0b5ed7;
+
+    font-size:2rem;
+
+    font-weight:700;
+
+    text-align:center;
+
+    margin-bottom:15px;
+
+}
+
+/* ---------- Sous-titre ---------- */
+
+h2{
+
+    color:#0b5ed7;
+
+    text-align:center;
+
+    font-size:1.35rem;
+
+    margin-bottom:10px;
+
+}
+
+/* ---------- Paragraphes ---------- */
+
+p{
+
+    color:#6f6f6f;
+
+    line-height:1.7;
+
+    text-align:center;
+
+    font-size:1rem;
+
+}
+
+/* ---------- Barre de progression ---------- */
+
+.progression{
+
+    height:28px;
+
+    margin-bottom:35px;
+
+    border-radius:30px;
+
+    overflow:hidden;
+
+    background:#ffffff;
+
+    box-shadow:0 5px 15px rgba(0,0,0,.08);
+
+}
+
+.progress-bar{
+
+    font-weight:bold;
+
+    font-size:0.95rem;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    transition:all .4s ease;
+
+}
+
+/* ---------- Boutons ---------- */
+
+.bouton{
+
+    border-radius:10px;
+
+    padding:12px 35px;
+
+    font-size:1rem;
+
+    transition:.25s;
+
+}
+
+.bouton:hover{
+
+    transform:scale(1.03);
+
+}
+
+/* ---------- Labels ---------- */
+
+.form-label{
+
+    font-weight:600;
+
+    color:#2c2c2c;
+
+}
+
+/* ---------- Listes déroulantes ---------- */
+
+.form-select{
+
+    min-height:48px;
+
+    border-radius:10px;
+
+}
+
+/* ---------- Responsive tablette ---------- */
+
+@media (max-width:992px){
+
+    .carte{
+
+        padding:35px;
+
+    }
+
+}
+
+/* ---------- Responsive téléphone ---------- */
+
+@media (max-width:768px){
+
+    .carte{
+
+        padding:25px;
+
+    }
+
+    h1{
+
+        font-size:1.6rem;
+
+    }
+
+    h2{
+
+        font-size:1.2rem;
+
+    }
+
+}
+
+/* ==========================================================
+   LIVRAISON 1B-2B
+   PAGE 3 - DOMAINES DE FORMATION
+========================================================== */
+
+
+/* ==========================================================
+   CONTENEUR DES CARTES
+========================================================== */
+
+#zoneDomaines{
+
+    width:100%;
+
+    margin-top:-15px;
+
+}
+
+
+/* Ligne contenant les 6 domaines */
+
+.ligne-domaines{
+
+    display:flex;
+
+    gap:15px;
+
+    justify-content:space-between;
+
+    align-items:stretch;
+
+    flex-wrap:nowrap;
+
+}
+
+
+/* ==========================================================
+   CARTE DOMAINE
+========================================================== */
+
+.carte-domaine{
+
+    flex:1;
+
+    min-height:130px;
+
+    border:2px solid #0b5ed7;
+
+    border-radius:15px;
+
+    background:#ffffff;
+
+    color:#0b5ed7;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    text-align:center;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:all .25s;
+
+    padding:15px;
+
+    user-select:none;
+
+}
+
+
+/* Effet souris */
+
+.carte-domaine:hover{
+
+    transform:translateY(-3px);
+
+    box-shadow:0 8px 18px rgba(0,0,0,.15);
+
+}
+
+
+/* Domaine sélectionné */
+
+.carte-domaine.active{
+
+    background:#0b5ed7;
+
+    color:white;
+
+}
+
+
+/* ==========================================================
+   COMPTEUR
+========================================================== */
+
+.compteur-selection{
+
+    margin-top:20px;
+
+    margin-bottom:20px;
+
+    font-size:18px;
+
+    font-weight:bold;
+
+    color:#0b5ed7;
+
+}
+
+
+/* Quand la limite est atteinte */
+
+.compteur-selection.max{
+
+    color:#dc3545;
+
+}
+
+
+/* ==========================================================
+   COLONNES DES SITUATIONS
+========================================================== */
+
+#zoneSituations{
+
+    width:100%;
+
+    margin-top:10px;
+
+}
+
+.zone-situations{
+
+    display:flex;
+
+    gap:20px;
+
+    align-items:flex-start;
+
+    margin-top:40px;
+
+    overflow-x:auto;
+
+    padding-bottom:10px;
+
+}
+
+
+/* Une colonne par domaine */
+
+.colonne-domaine{
+
+    flex:1;
+
+    min-width:240px;
+
+}
+
+
+/* Titre de colonne */
+
+.titre-domaine{
+
+    background:#0b5ed7;
+
+    color:white;
+
+    padding:10px;
+
+    border-radius:10px;
+
+    text-align:center;
+
+    font-weight:bold;
+
+    margin-bottom:15px;
+
+}
+
+
+/* ==========================================================
+   BOUTON DE SITUATION
+========================================================== */
+
+.situation{
+
+    display:flex;
+
+    align-items:flex-start;
+
+    gap:10px;
+
+    margin-bottom:12px;
+
+}
+
+
+/* Petit bouton rond */
+
+.bouton-situation{
+
+    width:22px;
+
+    height:22px;
+
+    border-radius:50%;
+
+    border:2px solid #0b5ed7;
+
+    background:white;
+
+    cursor:pointer;
+
+    flex-shrink:0;
+
+    transition:.20s;
+
+}
+
+
+/* Situation sélectionnée */
+
+.bouton-situation.active{
+
+    background:#0b5ed7;
+
+}
+
+
+/* Texte */
+
+.texte-situation{
+
+    font-size:14px;
+
+    line-height:1.4;
+
+    color:#333;
+
+}
+
+
+/* ==========================================================
+   RESPONSIVE
+========================================================== */
+
+@media(max-width:1200px){
+
+    .ligne-domaines{
+
+        flex-wrap:wrap;
+
+    }
+
+    .carte-domaine{
+
+        min-width:250px;
+
+    }
+
+}
+
+
+@media(max-width:768px){
+
+    .zone-situations{
+
+        flex-direction:column;
+
+    }
+
+    .colonne-domaine{
+
+        width:100%;
+
+    }
+
+}
+
+/*==========================================================
+PAGE 4
+==========================================================*/
+
+#listePriorites{
+
+    margin-top:25px;
+
+}
+
+.carte-priorite{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:18px;
+
+    padding:16px;
+
+    margin-bottom:14px;
+
+    border-radius:12px;
+
+    background:#ffffff;
+
+    border:2px solid #dbe8ff;
+
+    transition:.20s;
+
+}
+
+.numero-priorite{
+
+    width:34px;
+
+    height:34px;
+
+    border-radius:50%;
+
+    background:#0b5ed7;
+
+    color:white;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    font-weight:bold;
+
+    flex-shrink:0;
+
+}
+
+.texte-priorite{
+
+    flex:1;
+
+}
+
+/*==========================================================
+GLISSER-DEPOSER
+==========================================================*/
+
+.carte-priorite{
+
+    cursor:grab;
+
+}
+
+.carte-priorite:active{
+
+    cursor:grabbing;
+
+}
+
+.sortable-ghost{
+
+    opacity:.35;
+
+}
+
+.sortable-chosen{
+
+    transform:scale(1.02);
+
+}
+
+.sortable-drag{
+
+    transform:rotate(1deg);
+
+}
+
+.liste-etablissements{
+
+    border:1px solid #dcdcdc;
+
+    border-top:none;
+
+    max-height:250px;
+
+    overflow-y:auto;
+
+    background:white;
+
+    display:none;
+
+}
+
+.suggestion-etablissement{
+
+    padding:10px;
+
+    cursor:pointer;
+
+}
+
+.suggestion-etablissement:hover{
+
+    background:#eef4ff;
+
+}
+
+/* ==========================================================
+   TITRE SITUATIONS PROFESSIONNELLES
+========================================================== */
+
+#titreSituations{
+
+    margin-top:50px;
+
+}
+
+/* ==========================================================
+   TITRE METHODES
+========================================================== */
+
+#titreMethodes{
+
+    text-align:left;
+
+}
+
+/* ==========================================================
+   TEXTE D'INFORMATION DES QUESTIONS
+========================================================== */
+
+.info-question{
+
+    color:#6c757d;
+
+    font-size:16px;
+
+    font-weight:normal;
+
+}
+
+/* ==========================================================
+   TITRE MODALITES
+========================================================== */
+
+#zoneModalites{
+
+    text-align:left;
+
+}
+
+/* ==========================================================
+   TITRE ALIGNEMENT
+========================================================== */
+
+#page4 h2{
+
+    text-align:left;
+
+}
