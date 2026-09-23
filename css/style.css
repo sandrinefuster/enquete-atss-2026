@@ -2719,3 +2719,9 @@ GLISSER-DEPOSER
   background: #fff0ee !important;
   border-color: #e99b93 !important;
 }
+
+
+.message-erreur {
+  color: #b42318;
+  font-weight: 600;
+}
