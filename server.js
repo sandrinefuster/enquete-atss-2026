@@ -117,70 +117,70 @@ app.post("/envoyer", async (req, res) => {
 
         {
 
-          fields: {
+fields: {
 
-            Date_Reponse: new Date().toISOString(),
+  Date_reponse: new Date().toISOString(),
 
-            Type_Structure:
-              reponses.typeStructure || "",
+  Type_structure:
+    reponses.typeStructure || "",
 
-            Type_Structure_Autre:
-              reponses.typeStructureAutre || "",
+  Type_structure_autre:
+    reponses.typeStructureAutre || "",
 
-            Departement:
-              reponses.departement || "",
+  Departement:
+    reponses.departement || "",
 
-            Genre:
-              reponses.genre || "",
+  Genre:
+    reponses.genre || "",
 
-            Filiere:
-              reponses.filiere || "",
+  Filiere:
+    reponses.filiere || "",
 
-            Corps:
-              reponses.corps || "",
+  Corps:
+    reponses.corps || "",
 
-            Corps_Autre:
-              reponses.corpsAutre || "",
+  Corps_autre:
+    reponses.corpsAutre || "",
 
-            Anciennete_Corps:
-              reponses.ancienneteCorps || "",
+  Anciennete_corps:
+    reponses.ancienneteCorps || "",
 
-            Fonction:
-              reponses.fonction || "",
+  Fonction:
+    reponses.fonction || "",
 
-            Fonction_Precision:
-              reponses.fonctionPrecision || "",
+  Fonction_precision:
+    reponses.fonctionPrecision || "",
 
-            Anciennete_Fonction:
-              reponses.ancienneteFonction || "",
+  Anciennete_fonction:
+    reponses.ancienneteFonction || "",
 
-            Domaines:
-              reponses.domaines.join(" | "),
+  Domaines:
+    reponses.domaines.join(" | "),
 
-            Situations:
-              reponses.situations.join(" | "),
+  Situations:
+    reponses.situations.join(" | "),
 
-            Priorites:
-              reponses.priorites
-                .map(
-                  (situation, index) =>
-                    `${index + 1}. ${situation}`
-                )
-                .join(" | "),
+  Priorites:
+    reponses.priorites
+      .map(
+        (situation, index) =>
+          `${index + 1}. ${situation}`
+      )
+      .join(" | "),
 
-            Formation_Deux_Ans:
-              reponses.formationDeuxAns || "",
+  Formations_deux_ans:
+    reponses.formationDeuxAns || "",
 
-            Leviers_Engagement:
-              reponses.leviersEngagement.join(" | "),
+  Leviers_engagement:
+    reponses.leviersEngagement.join(" | "),
 
-            Levier_Autre:
-              reponses.levierAutre || "",
+  Levier_autre:
+    reponses.levierAutre || "",
 
-            Version:
-              reponses.version || "3.0"
+  Version:
+    reponses.version || "3.0"
 
-          }
+}
 
         }
 
