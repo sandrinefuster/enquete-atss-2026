@@ -127,7 +127,7 @@ fields: {
   Type_structure_autre:
     reponses.typeStructureAutre || "",
 
-  Departement:
+  Departement2:
     reponses.departement || "",
 
   Genre:
@@ -145,7 +145,7 @@ fields: {
   Anciennete_corps:
     reponses.ancienneteCorps || "",
 
-  Fonction:
+  Fonction2:
     reponses.fonction || "",
 
   Fonction_precision:
