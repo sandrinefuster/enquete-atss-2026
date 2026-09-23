@@ -1,7 +1,8 @@
 /* ==========================================================
-   BAROMÈTRE EAFC
-   SERVER.JS - VERSION 1.1 - TEST
+   ENQUÊTE EAFC
+   SERVER.JS - VERSION 3.0
 ========================================================== */
+
 
 /* ==========================================================
    1. MODULES
@@ -9,8 +10,8 @@
 
 const express = require("express");
 const cors = require("cors");
-const fetch = global.fetch;
 require("dotenv").config();
+
 
 /* ==========================================================
    2. CONFIGURATION
@@ -24,217 +25,263 @@ const API_KEY = process.env.GRIST_API_KEY;
 const DOC_ID = process.env.GRIST_DOC_ID;
 const TABLE = process.env.GRIST_TABLE;
 
+
 /* ==========================================================
    3. MIDDLEWARE
 ========================================================== */
 
 app.use(cors());
 
-app.use(express.json());
+app.use(express.json({ limit: "100kb" }));
 
 app.use(express.static(__dirname));
 
-/* ==========================================================
-   4. ROUTES
-========================================================== */
 
-/* ----------------------------------------------------------
-   Accueil
----------------------------------------------------------- */
+/* ==========================================================
+   4. ROUTE D'ACCUEIL
+========================================================== */
 
 app.get("/", (req, res) => {
 
-    res.sendFile(__dirname + "/index.html");
+  res.sendFile(__dirname + "/index.html");
 
 });
 
-/* ----------------------------------------------------------
-   Envoi des réponses vers Grist
----------------------------------------------------------- */
 
-app.post("/envoyer", async (req,res)=>{
+/* ==========================================================
+   5. ENVOI DES RÉPONSES VERS GRIST
+========================================================== */
 
-    try{
+app.post("/envoyer", async (req, res) => {
 
-        const reponses = req.body;
+    console.log(">>> Réception d'une demande d'envoi");
 
-        const donneesGrist = {
+  try {
 
-    records:[
+    const reponses = req.body;
+
+        console.log("Champs reçus :", Object.keys(reponses));
+
+    /* ------------------------------------------------------
+       Vérification minimale des données reçues
+    ------------------------------------------------------ */
+
+    if (
+      !reponses ||
+      !reponses.typeStructure ||
+      !reponses.departement ||
+      !reponses.genre ||
+      !reponses.filiere ||
+      !reponses.corps ||
+      !reponses.ancienneteCorps ||
+      !reponses.fonction ||
+      !reponses.ancienneteFonction ||
+      !Array.isArray(reponses.domaines) ||
+      !Array.isArray(reponses.situations) ||
+      !Array.isArray(reponses.priorites) ||
+      !reponses.formationDeuxAns ||
+      !Array.isArray(reponses.leviersEngagement)
+    ) {
+
+      return res.status(400).json({
+        succes: false,
+        message: "Données incomplètes."
+      });
+    }
+
+
+    /* ------------------------------------------------------
+       Vérification de la configuration Grist
+    ------------------------------------------------------ */
+
+    if (!API_KEY || !DOC_ID || !TABLE) {
+
+      console.error(
+        "Configuration Grist incomplète."
+      );
+
+      return res.status(500).json({
+        succes: false,
+        message: "Configuration du serveur incomplète."
+      });
+    }
+
+
+    /* ------------------------------------------------------
+       Préparation des données Grist
+    ------------------------------------------------------ */
+
+    const donneesGrist = {
+
+      records: [
 
         {
 
-            fields: {
+          fields: {
 
-    Etablissement: reponses.etablissement,
+            Date_Reponse: new Date().toISOString(),
 
-    Commune: reponses.commune,
+            Type_Structure:
+              reponses.typeStructure || "",
 
-    UAI: reponses.uai,
+            Type_Structure_Autre:
+              reponses.typeStructureAutre || "",
 
-    Genre: reponses.genre,
+            Departement:
+              reponses.departement || "",
 
-    Anciennete: reponses.anciennete,
+            Genre:
+              reponses.genre || "",
 
-    Grade: reponses.grade,
+            Filiere:
+              reponses.filiere || "",
 
-    Fonction: reponses.fonction,
+            Corps:
+              reponses.corps || "",
 
-    Domaines: reponses.domaines.join(" | "),
+            Corps_Autre:
+              reponses.corpsAutre || "",
 
-    Situations: reponses.situations.join(" | "),
+            Anciennete_Corps:
+              reponses.ancienneteCorps || "",
 
-    Modalites: reponses.modalites.join(" | "),
+            Fonction:
+              reponses.fonction || "",
 
-    Methodes: reponses.methodes.join(" | "),
+            Fonction_Precision:
+              reponses.fonctionPrecision || "",
 
-    Mail: reponses.mail,
+            Anciennete_Fonction:
+              reponses.ancienneteFonction || "",
 
-    Version: "2.0"
+            Domaines:
+              reponses.domaines.join(" | "),
 
-}
+            Situations:
+              reponses.situations.join(" | "),
+
+            Priorites:
+              reponses.priorites
+                .map(
+                  (situation, index) =>
+                    `${index + 1}. ${situation}`
+                )
+                .join(" | "),
+
+            Formation_Deux_Ans:
+              reponses.formationDeuxAns || "",
+
+            Leviers_Engagement:
+              reponses.leviersEngagement.join(" | "),
+
+            Levier_Autre:
+              reponses.levierAutre || "",
+
+            Version:
+              reponses.version || "3.0"
+
+          }
 
         }
 
-    ]
+      ]
 
-};
+    };
 
-console.log("");
-console.log("========== DONNÉES POUR GRIST ==========");
-console.dir(donneesGrist,{depth:null});
-console.log("========================================");
-console.log("");
 
-        console.log("");
-        console.log("========== NOUVELLE REPONSE ==========");
+    /* ------------------------------------------------------
+       Envoi à Grist
+    ------------------------------------------------------ */
 
-        console.log(reponses);
+    const reponseGrist = await fetch(
 
-        console.log("======================================");
-        console.log("");
+      `https://grist.numerique.gouv.fr/api/docs/${DOC_ID}/tables/${encodeURIComponent(TABLE)}/records`,
 
-        console.log("DOC_ID :", DOC_ID);
-        console.log("TABLE  :", TABLE);
-
-const reponseGrist = await fetch(
-
-    `https://grist.numerique.gouv.fr/api/docs/${DOC_ID}/tables/${encodeURIComponent(TABLE)}/records`,
-
-    {
+      {
 
         method: "POST",
 
         headers: {
 
-            "Authorization": `Bearer ${API_KEY}`,
+          Authorization: `Bearer ${API_KEY}`,
 
-            "Content-Type": "application/json"
+          "Content-Type": "application/json"
 
         },
 
         body: JSON.stringify(donneesGrist)
 
-    }
-
-);
-
-if(!reponseGrist.ok){
-
-      console.log("===== ERREUR GRIST =====");
-
-    console.log("Statut :", reponseGrist.status);
-
-    console.log("StatusText :", reponseGrist.statusText);
-
-    const erreurGrist = await reponseGrist.text();
-
-console.log("Réponse :", erreurGrist);
-
-    console.log("========================");
-
-    return res.status(500).json({
-
-        succes:false,
-
-        message:"Erreur Grist"
-
-    });
-
-}
-
-res.json({
-
-    succes:true
-
-});         
-
-    }
-
-    catch(erreur){
-
-        console.error(erreur);
-
-        res.status(500).json({
-
-            succes:false,
-
-            message:erreur.message
-
-        });
-
-    }
-
-});
-
-/* ==========================================================
-   5. DÉMARRAGE DU SERVEUR
-========================================================== */
-
-app.get("/tables", async (req, res) => {
-
-    const reponse = await fetch(
-
-        `https://grist.numerique.gouv.fr/api/docs/${DOC_ID}/tables`,
-
-        {
-
-            headers: {
-
-                Authorization: `Bearer ${API_KEY}`
-
-            }
-
-        }
+      }
 
     );
 
-    const resultat = await reponse.json();
 
-    res.json(resultat);
+    /* ------------------------------------------------------
+       Gestion d'une erreur Grist
+    ------------------------------------------------------ */
+
+    if (!reponseGrist.ok) {
+
+      const erreurGrist =
+        await reponseGrist.text();
+
+      console.error(
+        "Erreur Grist :",
+        reponseGrist.status,
+        erreurGrist
+      );
+
+      return res.status(502).json({
+
+        succes: false,
+
+        message:
+          "Les réponses n'ont pas pu être enregistrées."
+
+      });
+
+    }
+
+
+    /* ------------------------------------------------------
+       Succès
+    ------------------------------------------------------ */
+
+    return res.json({
+      succes: true
+    });
+
+  }
+
+  catch (erreur) {
+
+    console.error(
+      "Erreur lors de l'enregistrement :",
+      erreur
+    );
+
+    return res.status(500).json({
+
+      succes: false,
+
+      message:
+        "Une erreur est survenue lors de l'enregistrement."
+
+    });
+
+  }
 
 });
 
+
+/* ==========================================================
+   6. DÉMARRAGE DU SERVEUR
+========================================================== */
+
 app.listen(PORT, () => {
 
-    console.log("");
-
-    console.log("======================================");
-    console.log(" BAROMÈTRE EAFC");
-    console.log(" SERVER.JS VERSION 1.0");
-    console.log("======================================");
-
-    console.log("");
-
-    console.log("Document Grist :", DOC_ID);
-    console.log("Table          :", TABLE);
-    console.log("Configuration  :", API_KEY ? "OK" : "ERREUR");
-
-    console.log("");
-
-    console.log("Serveur démarré");
-    console.log("http://localhost:" + PORT);
-
-    console.log("");
+  console.log(
+    `Serveur EAFC démarré sur le port ${PORT}`
+  );
 
 });
