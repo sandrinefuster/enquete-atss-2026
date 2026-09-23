@@ -54,13 +54,9 @@ app.get("/", (req, res) => {
 
 app.post("/envoyer", async (req, res) => {
 
-    console.log(">>> Réception d'une demande d'envoi");
-
-  try {
+      try {
 
     const reponses = req.body;
-
-        console.log("Champs reçus :", Object.keys(reponses));
 
     /* ------------------------------------------------------
        Vérification minimale des données reçues
