@@ -1,3 +1,6 @@
 node_modules/
 .env
 server-ancien.js
+package.zip
+data/fr-en-annuaire-education-ancien.csv
+data/fr-en-annuaire-education.csv
