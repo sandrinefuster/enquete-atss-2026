@@ -71,9 +71,13 @@ app.post("/envoyer", async (req, res) => {
       !reponses.ancienneteFonction ||
       !Array.isArray(reponses.domaines) ||
       !Array.isArray(reponses.situations) ||
+      reponses.situations.length < 1 ||
+      reponses.situations.length > 5 ||
       !Array.isArray(reponses.priorites) ||
-      !reponses.formationDeuxAns ||
-      !Array.isArray(reponses.leviersEngagement)
+      reponses.priorites.length !== reponses.situations.length ||
+      !["Oui", "Non"].includes(reponses.formationDeuxAns) ||
+      !Array.isArray(reponses.leviersEngagement) ||
+      reponses.leviersEngagement.length < 1
     ) {
 
       return res.status(400).json({
