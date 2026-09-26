@@ -77,7 +77,11 @@ app.post("/envoyer", async (req, res) => {
       reponses.priorites.length !== reponses.situations.length ||
       !["Oui", "Non"].includes(reponses.formationDeuxAns) ||
       !Array.isArray(reponses.leviersEngagement) ||
-      reponses.leviersEngagement.length < 1
+      reponses.leviersEngagement.length < 1 ||
+      (reponses.typeStructureAutre || "").length > 500 ||
+      (reponses.corpsAutre || "").length > 500 ||
+      (reponses.fonctionPrecision || "").length > 500 ||
+      (reponses.levierAutre || "").length > 500
     ) {
 
       return res.status(400).json({
