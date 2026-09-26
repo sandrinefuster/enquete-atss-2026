@@ -9,7 +9,6 @@
 ========================================================== */
 
 const express = require("express");
-const cors = require("cors");
 require("dotenv").config();
 
 
@@ -29,8 +28,6 @@ const TABLE = process.env.GRIST_TABLE;
 /* ==========================================================
    3. MIDDLEWARE
 ========================================================== */
-
-app.use(cors());
 
 app.use(express.json({ limit: "100kb" }));
 
