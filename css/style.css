@@ -2171,7 +2171,7 @@ GLISSER-DEPOSER
 /* Le contenu du premier bloc devient une grille à 3 colonnes */
 #page2 .bloc-profil:first-of-type .bloc-profil-contenu {
   display: grid;
-  grid-template-columns: 42fr 25fr 33fr;
+  grid-template-columns: 38fr 22fr 40fr;
   column-gap: 30px;
   align-items: start;
 

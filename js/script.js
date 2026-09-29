@@ -7,7 +7,7 @@
 
 const VERSION_QUESTIONNAIRE = "3.0";
 const CLE_SAUVEGARDE = "barometreEAFC_v3_brouillon";
-const DUREE_SAUVEGARDE = 15 * 24 * 60 * 60 * 1000;
+const DUREE_SAUVEGARDE = 10 * 24 * 60 * 60 * 1000;
 
 let pageCourante = 1;
 const nombrePages = 4;
@@ -628,12 +628,12 @@ function basculerSituation(situation) {
 
     if (reponses.situations.length >= 5) {
 
-      afficherErreur(
-        "erreurSituations",
-        "Vous pouvez sélectionner au maximum 5 situations professionnelles."
-      );
+     afficherErreur(
+  "erreurSituations",
+  "Vous avez déjà sélectionné 5 situations, soit le maximum autorisé. Pour en sélectionner une nouvelle, vous devez d’abord en décocher une."
+);
 
-      return;
+return;
     }
 
     reponses.situations.push(situation);
