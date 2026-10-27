@@ -36,6 +36,7 @@ const reponses = {
   domaines: [],
   situations: [],
   priorites: [],
+  autreSituation: "",
 
   formationDeuxAns: "",
   leviersEngagement: [],
@@ -55,6 +56,7 @@ const corpsParFiliere = {
     "ADJAENES — Adjoint administratif de l'Éducation nationale et de l'Enseignement supérieur",
     "SAENES — Secrétaire administratif de l'Éducation nationale et de l'Enseignement supérieur",
     "AAE — Attaché d'administration de l'État",
+    "APAE — Attaché principal d'administration de l'État",
     "Agent contractuel",
     "Autre corps"
   ],
@@ -208,10 +210,28 @@ function afficherPage(numero) {
 
   pageCourante = numero;
 
-  const pourcentage = (numero / nombrePages) * 100;
+const zoneProgression = element("zoneProgression");
+const barre = element("barreProgression");
+const texte = element("texteProgression");
 
-  const barre = element("barreProgression");
-  const texte = element("texteProgression");
+if (numero === 1) {
+
+  // Accueil : aucune progression affichée
+  zoneProgression?.classList.add("d-none");
+
+} else {
+
+  // Les pages 2, 3 et 4 deviennent les étapes 1, 2 et 3
+  const etape = numero - 1;
+  const pourcentage = (etape / 3) * 100;
+
+  const titres = {
+    1: "Votre profil",
+    2: "Vos situations professionnelles",
+    3: "Votre accès à la formation"
+  };
+
+  zoneProgression?.classList.remove("d-none");
 
   if (barre) {
     barre.style.width = `${pourcentage}%`;
@@ -219,8 +239,10 @@ function afficherPage(numero) {
   }
 
   if (texte) {
-    texte.textContent = `Étape ${numero} sur ${nombrePages}`;
+    texte.textContent = `Étape ${etape}/3 — ${titres[etape]}`;
   }
+
+}
 
   window.scrollTo({
     top: 0,
@@ -626,15 +648,24 @@ function basculerSituation(situation) {
 
   if (index === -1) {
 
-    if (reponses.situations.length >= 5) {
+   if (reponses.situations.length >= 5) {
 
-     afficherErreur(
-  "erreurSituations",
-  "Vous avez déjà sélectionné 5 situations, soit le maximum autorisé. Pour en sélectionner une nouvelle, vous devez d’abord en décocher une."
-);
+  const astuce = element("texteAstuceSituations");
+  const boutonAstuce = element("boutonAstuceSituations");
 
-return;
-    }
+  if (astuce && boutonAstuce) {
+
+    astuce.textContent =
+      "Vous avez déjà sélectionné 5 situations. Pour en choisir une autre, décochez d'abord une situation.";
+
+    afficher(astuce);
+    astuce.classList.add("astuce-limite");
+
+    boutonAstuce.setAttribute("aria-expanded", "true");
+  }
+
+  return;
+}
 
     reponses.situations.push(situation);
     reponses.priorites.push(situation);
@@ -666,7 +697,7 @@ function mettreAJourCompteur() {
   const nombre = reponses.situations.length;
 
   compteur.textContent =
-    `${nombre} situation${nombre > 1 ? "s" : ""} sélectionnée${nombre > 1 ? "s" : ""} sur 5`;
+  `${nombre} situation${nombre > 1 ? "s" : ""} sélectionnée${nombre > 1 ? "s" : ""} sur 5`;
 
   compteur.classList.toggle("compteur-max", nombre === 5);
 }
@@ -718,13 +749,14 @@ function rendrePriorites() {
     poignee.title = "Déplacer cette situation";
 
     item.appendChild(numero);
-    item.appendChild(poignee);
-    item.appendChild(texte);
+item.appendChild(poignee);
+item.appendChild(texte);
 
-    liste.appendChild(item);
+liste.appendChild(item);
+
   });
 
-  initialiserSortable();
+   initialiserSortable();
 }
 
 
@@ -742,19 +774,42 @@ function initialiserSortable() {
 
   sortablePriorites = new Sortable(liste, {
 
-    animation: 150,
-    handle: ".poignee-priorite",
+  animation: 150,
 
-    onEnd: () => {
+  onMove: (evt) => {
 
-      reponses.priorites = Array.from(
-        liste.querySelectorAll(".item-priorite")
-      ).map(item => item.dataset.situation);
+    const identifiant = "Autre situation professionnelle non proposée";
 
-      rendrePriorites();
-      sauvegarderBrouillon();
+    const situationDeplacee = evt.dragged.dataset.situation;
+
+    // La situation libre ne peut pas être déplacée.
+    if (situationDeplacee === identifiant) {
+      return false;
     }
-  });
+
+    // Aucune autre situation ne peut passer avant elle.
+    if (
+      reponses.priorites[0] === identifiant &&
+      evt.related.dataset.situation === identifiant &&
+      evt.willInsertAfter === false
+    ) {
+      return false;
+    }
+
+    return true;
+  },
+
+  onEnd: () => {
+
+    reponses.priorites = Array.from(
+      liste.querySelectorAll(".item-priorite")
+    ).map(item => item.dataset.situation);
+
+    rendrePriorites();
+    sauvegarderBrouillon();
+  }
+
+});
 }
 
 
@@ -771,6 +826,28 @@ function validerSituations() {
     );
 
     return false;
+  }
+
+  // Vérifier la description de la situation libre
+  const identifiantAutre = "Autre situation professionnelle non proposée";
+
+  if (reponses.situations.includes(identifiantAutre)) {
+
+    const texte = element("texteAutreSituation")?.value.trim() || "";
+
+    if (!texte) {
+
+      afficherErreur(
+        "erreurSituations",
+        "Merci de décrire votre autre situation professionnelle avant de poursuivre."
+      );
+
+      element("texteAutreSituation")?.focus();
+
+      return false;
+    }
+
+    reponses.autreSituation = texte;
   }
 
   masquerErreur("erreurSituations");
@@ -807,6 +884,11 @@ function enregistrerEngagement() {
   reponses.formationDeuxAns =
     valeurRadio("formationDeuxAns");
 
+  reponses.raisonNonFormation =
+    reponses.formationDeuxAns === "Non"
+      ? (element("raisonNonFormation")?.value.trim() || "")
+      : "";
+
   reponses.leviersEngagement =
     valeursCheckbox("leviersEngagement");
 
@@ -825,6 +907,22 @@ function validerEngagement() {
       "erreurFinale",
       "Merci d'indiquer si vous avez participé à une formation au cours des deux dernières années."
     );
+
+    return false;
+  }
+
+    // Justification obligatoire en cas de non-participation
+  if (
+    reponses.formationDeuxAns === "Non" &&
+    !reponses.raisonNonFormation
+  ) {
+
+    afficherErreur(
+      "erreurFinale",
+      "Merci de préciser la principale raison pour laquelle vous n'avez pas participé à une formation au cours des deux dernières années."
+    );
+
+    element("raisonNonFormation")?.focus();
 
     return false;
   }
@@ -859,7 +957,7 @@ function validerEngagement() {
 
 
 /* ============================================================
-   10. SAUVEGARDE AUTOMATIQUE - 15 JOURS
+   10. SAUVEGARDE AUTOMATIQUE - 10 JOURS
    ============================================================ */
 
 function sauvegarderBrouillon() {
@@ -914,6 +1012,9 @@ function lireBrouillon() {
     }
 
     if (brouillon.version !== VERSION_QUESTIONNAIRE) {
+
+      localStorage.removeItem(CLE_SAUVEGARDE);
+
       return null;
     }
 
@@ -934,6 +1035,29 @@ function restaurerBrouillon(brouillon) {
 
   Object.assign(reponses, brouillon.reponses);
 
+  // Restaurer la situation professionnelle libre
+const identifiantAutre = "Autre situation professionnelle non proposée";
+
+const choixAutre = element("choixAutreSituation");
+const zoneAutre = element("zoneAutreSituation");
+const texteAutre = element("texteAutreSituation");
+
+const autreSelectionnee =
+  reponses.situations.includes(identifiantAutre);
+
+if (choixAutre && zoneAutre && texteAutre) {
+
+  choixAutre.checked = autreSelectionnee;
+  texteAutre.value = reponses.autreSituation || "";
+  texteAutre.required = autreSelectionnee;
+
+  if (autreSelectionnee) {
+    afficher(zoneAutre);
+  } else {
+    masquer(zoneAutre);
+  }
+}
+
   restaurerProfil();
   restaurerEngagement();
 
@@ -943,14 +1067,13 @@ function restaurerBrouillon(brouillon) {
   mettreAJourCompteur();
 
   const pageAReprendre =
-    Number(brouillon.currentPage) || 1;
+    Number(brouillon.currentPage) || 2;
 
-  afficherPage(
-    Math.min(
-      Math.max(pageAReprendre, 1),
-      nombrePages
-    )
-  );
+  const page = Math.min(Math.max(pageAReprendre, 2), nombrePages);
+
+document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
+element(`page${page}`)?.classList.add("active");
+pageCourante = page;
 }
 
 
@@ -1034,6 +1157,21 @@ function restaurerEngagement() {
     reponses.levierAutre || "";
 
   gererLevierAutre();
+
+    // Restaurer la raison de non-participation
+  const champRaison = element("raisonNonFormation");
+  const zoneRaison = element("zoneRaisonNonFormation");
+
+  if (champRaison && zoneRaison) {
+
+    champRaison.value = reponses.raisonNonFormation || "";
+
+    const nonSelectionne =
+      reponses.formationDeuxAns === "Non";
+
+    zoneRaison.classList.toggle("d-none", !nonSelectionne);
+    champRaison.required = nonSelectionne;
+  }
 }
 
 
@@ -1085,8 +1223,10 @@ function construireDonneesEnvoi() {
     domaines: [...reponses.domaines],
     situations: [...reponses.situations],
     priorites: [...reponses.priorites],
+    autreSituation: reponses.autreSituation || "",
 
     formationDeuxAns: reponses.formationDeuxAns,
+    raisonNonFormation: reponses.raisonNonFormation || "",
     leviersEngagement: [...reponses.leviersEngagement],
     levierAutre: reponses.levierAutre
   };
@@ -1132,7 +1272,7 @@ async function envoyerQuestionnaire() {
 
   const donnees = construireDonneesEnvoi();
 
-  try {
+    try {
 
     const reponseServeur = await fetch("/envoyer", {
 
@@ -1183,6 +1323,124 @@ async function envoyerQuestionnaire() {
    ============================================================ */
 
 function installerEvenements() {
+
+  /* ---------- Astuce : situations professionnelles ---------- */
+  
+const boutonAstuce = element("boutonAstuceSituations");
+const messageAstuce = element("texteAstuceSituations");
+
+function fermerAstuce() {
+  if (!boutonAstuce || !messageAstuce) return;
+
+  messageAstuce.classList.add("d-none");
+  boutonAstuce.setAttribute("aria-expanded", "false");
+}
+
+boutonAstuce?.addEventListener("click", () => {
+  if (!messageAstuce) return;
+
+  const estOuvert = !messageAstuce.classList.contains("d-none");
+
+  if (!estOuvert) {
+    messageAstuce.textContent =
+      "Vous pouvez sélectionner ou désélectionner librement les domaines et les situations professionnelles pour ajuster vos choix.";
+      messageAstuce.classList.remove("astuce-limite");
+  }
+
+  messageAstuce.classList.toggle("d-none", estOuvert);
+  boutonAstuce.setAttribute("aria-expanded", String(!estOuvert));
+});
+
+document.addEventListener("click", (event) => {
+
+  if (
+    boutonAstuce &&
+    messageAstuce &&
+    !boutonAstuce.contains(event.target) &&
+    !messageAstuce.contains(event.target)
+  ) {
+
+    // Ne pas refermer l'astuce si le clic concerne
+    // une situation professionnelle.
+    if (event.target.closest("#zoneSituations")) {
+      return;
+    }
+
+    fermerAstuce();
+  }
+}); 
+
+/* ---------- Autre situation professionnelle ---------- */
+
+const choixAutreSituation = element("choixAutreSituation");
+const zoneAutreSituation = element("zoneAutreSituation");
+const texteAutreSituation = element("texteAutreSituation");
+
+texteAutreSituation?.addEventListener("input", () => {
+  reponses.autreSituation = texteAutreSituation.value;
+  sauvegarderBrouillon();
+});
+
+choixAutreSituation?.addEventListener("change", () => {
+
+  const identifiant = "Autre situation professionnelle non proposée";
+
+  if (choixAutreSituation.checked) {
+
+    if (reponses.situations.length >= 5) {
+      choixAutreSituation.checked = false;
+      basculerSituation(identifiant);
+      return;
+    }
+
+    reponses.situations.push(identifiant);
+    reponses.priorites.unshift(identifiant);
+
+    afficher(zoneAutreSituation);
+    texteAutreSituation.required = true;
+
+  } else {
+
+    reponses.situations =
+      reponses.situations.filter(s => s !== identifiant);
+
+    reponses.priorites =
+      reponses.priorites.filter(s => s !== identifiant);
+
+    reponses.autreSituation = "";
+
+    masquer(zoneAutreSituation);
+    texteAutreSituation.required = false;
+    texteAutreSituation.value = "";
+  }
+
+  rendreSituations();
+  rendrePriorites();
+  mettreAJourCompteur();
+  sauvegarderBrouillon();
+
+});
+
+  /* ---------- Participation à une formation ---------- */
+
+  document.querySelectorAll('input[name="formationDeuxAns"]')
+    .forEach(radio => {
+      radio.addEventListener("change", () => {
+
+        const zone = element("zoneRaisonNonFormation");
+        const champ = element("raisonNonFormation");
+
+        if (!zone || !champ) return;
+
+        const nonSelectionne =
+          document.querySelector('input[name="formationDeuxAns"]:checked')?.value === "Non";
+
+        zone.classList.toggle("d-none", !nonSelectionne);
+        champ.required = nonSelectionne;
+
+        sauvegarderBrouillon();
+      });
+    });
 
   /* ---------- Navigation ---------- */
 
@@ -1363,21 +1621,14 @@ document.addEventListener(
 
   pageCourante = 1;
 
-  const barre = element("barreProgression");
-  const texte = element("texteProgression");
-
-  if (barre) {
-    barre.style.width = "25%";
-    barre.setAttribute("aria-valuenow", 25);
-  }
-
-  if (texte) {
-    texte.textContent = "Étape 1 sur 4";
-  }
+// L'accueil ne fait pas partie des trois étapes
+element("zoneProgression")?.classList.add("d-none");
 
 } else {
-
-  afficherPage(1);
+  document.querySelectorAll(".page").forEach(page => page.classList.remove("active"));
+  element("page1")?.classList.add("active");
+  pageCourante = 1;
+  element("zoneProgression")?.classList.add("d-none");
 }
   }
 );

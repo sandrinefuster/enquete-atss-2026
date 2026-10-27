@@ -159,18 +159,25 @@ fields: {
     reponses.domaines.join(" | "),
 
   Situations:
-    reponses.situations.join(" | "),
+  reponses.situations.join(" | "),
 
-  Priorites:
-    reponses.priorites
-      .map(
-        (situation, index) =>
-          `${index + 1}. ${situation}`
-      )
-      .join(" | "),
+Autre_situation:
+  reponses.autreSituation || "",
+
+Priorites:
+  reponses.priorites
+    .map(
+      (situation, index) =>
+        `${index + 1}. ${situation}`
+    )
+    .join(" | "),
 
   Formations_deux_ans:
     reponses.formationDeuxAns || "",
+
+  
+  Raison_non_formation:
+    reponses.raisonNonFormation || "",
 
   Leviers_engagement:
     reponses.leviersEngagement.join(" | "),

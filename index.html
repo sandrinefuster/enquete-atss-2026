@@ -23,7 +23,7 @@
     <!-- EN-TÊTE / PROGRESSION -->
     <!-- ===================================================== -->
 
-    <div class="progression mb-4">
+    <div id="zoneProgression" class="progression mb-4 d-none">
       <div class="progress">
         <div
           id="barreProgression"
@@ -46,221 +46,181 @@
     <!-- ÉTAPE 1 : INTRODUCTION -->
     <!-- ===================================================== -->
 
-<section id="page1" class="page active">
 
+<section id="page1" class="page active">
   <div class="accueil-questionnaire">
 
-    <!-- COLONNE GAUCHE -->
-    <div class="accueil-contenu">
+    <header class="accueil-titre">
+      <h1>Enquête sur les priorités de formation</h1>
+      <p class="accueil-sous-titre">
+        Personnels administratifs, techniques, sociaux et de santé
+      </p>
+      <div class="trait-titre"></div>
+    </header>
 
-      <header class="accueil-titre">
+    <div class="accueil-introduction">
+      <p>
+        L'École académique de la formation continue (EAFC) souhaite mieux connaître
+        <strong>vos priorités en matière de formation</strong> afin d'enrichir et
+        d'adapter l'offre proposée aux personnels de l'académie.
+      </p>
+      <p>
+        Ce questionnaire vise à identifier les domaines dans lesquels vous souhaitez
+        développer vos compétences ou approfondir vos connaissances, ainsi que les
+        situations professionnelles qui vous interrogent ou peuvent vous mettre en difficulté.
+      </p>
+    </div>
 
-        <h1>Enquête sur les priorités de formation</h1>
-
-        <p class="accueil-sous-titre">
-          Personnels administratifs, techniques, sociaux et de santé
-        </p>
-
-        <div class="trait-titre"></div>
-
-      </header>
-
-
-      <div class="accueil-introduction">
-
-        <p>
-          L'École académique de la formation continue (EAFC) souhaite mieux
-          connaître <strong>vos priorités en matière de formation</strong> afin
-          d'enrichir et d'adapter l'offre proposée aux personnels de l'académie.
-        </p>
-
-        <p>
-          Ce questionnaire vise à identifier les domaines dans lesquels vous
-          souhaitez développer vos compétences ou approfondir vos connaissances,
-          ainsi que les situations professionnelles qui vous interrogent ou
-          peuvent vous mettre en difficulté.
-        </p>
-
-        <p>
-          Vos réponses contribueront à éclairer la construction du plan
-          académique de formation.
-        </p>
-
-      </div>
-
-
-      <div class="encadre-resultats">
-
-        <div class="icone-resultats" aria-hidden="true">
-          ▥
+    <div class="accueil-etapes">
+      <div class="accueil-etape etape-profil">
+        <div class="etape-icone" aria-hidden="true">
+          <svg 
+            width="34" 
+            height="34" 
+            viewBox="0 0 24 24"
+            fill="none" 
+            stroke="currentColor" 
+            stroke-width="1.8"
+            stroke-linecap="round" 
+            stroke-linejoin="round"
+          >
+            <circle cx="12" cy="7" r="4"></circle>
+            <path d="M4 21v-2a8 8 0 0 1 16 0v2"></path>
+          </svg>
         </div>
-
         <div>
-          <strong>
-            Une synthèse des réponses sera publiée sur l'espace Actualités du PIA
-          </strong>
-          </div>
-
+          <span>Étape 1 sur 3</span>
+          <h2>Votre profil</h2>
+          <p>Votre situation professionnelle.</p>
+        </div>
       </div>
 
+      <div class="etape-fleche" aria-hidden="true">➜</div>
 
-      <!-- Cette zone apparaît uniquement si un brouillon est retrouvé -->
-      <div id="zoneReprise" class="d-none zone-reprise">
+      <div class="accueil-etape etape-situations">
+        <div class="etape-icone" aria-hidden="true">☷</div>
+        <div>
+          <span>Étape 2 sur 3</span>
+          <h2>Vos situations professionnelles</h2>
+          <p>Choisissez et priorisez les situations qui vous concernent.</p>
+        </div>
+      </div>
 
+      <div class="etape-fleche" aria-hidden="true">➜</div>
+
+      <div class="accueil-etape etape-formation">
+        <div class="etape-icone" aria-hidden="true">🎓</div>
+        <div>
+          <span>Étape 3 sur 3</span>
+          <h2>Votre accès à la formation</h2>
+          <p>Votre participation et les conditions qui la facilitent.</p>
+        </div>
+      </div>
+    </div>
+
+ <div class="informations-cles">
+      <div class="info-cle">
+        <div class="info-icone info-rouge" aria-hidden="true">◷</div>
+        <div>
+          <strong>Moins de 8 minutes</strong>
+          <span>pour compléter l'ensemble du questionnaire.</span>
+        </div>
+      </div>
+
+      <div class="info-cle">
+        <div class="info-icone info-vert" aria-hidden="true">✓</div>
+        <div>
+          <strong>Toutes les questions sont obligatoires</strong>
+        </div>
+      </div>
+
+      <div class="info-cle">
+        <div class="info-icone info-orange" aria-hidden="true">↻</div>
+        <div>
+          <strong>Votre saisie est enregistrée automatiquement</strong>
+          <span>Vous pouvez l'interrompre et la reprendre pendant 10 jours.</span>
+        </div>
+      </div>
+
+      <div class="info-cle">
+        <div class="info-icone info-violet" aria-hidden="true">🔒</div>
+        <div>
+          <strong>Vos réponses ne seront transmises qu'après votre validation finale</strong>
+        </div>
+      </div>
+
+      <div class="info-cle">
+        <div class="info-icone info-bleu" aria-hidden="true">1×</div>
+        <div>
+          <strong>Merci de ne répondre qu'une seule fois</strong>
+          <span>afin de permettre une analyse aussi représentative que possible.</span>
+        </div>
+      </div>
+    </div>
+    
+
+<!-- Actions de l'accueil -->
+
+<div class="accueil-actions">
+
+    <div class="accueil-action">
+        <button
+            type="button"
+            class="btn-commencer"
+            id="boutonCommencer"
+        >
+            Commencer le questionnaire
+            <span aria-hidden="true">➜</span>
+        </button>
+    </div>
+
+    <!-- Visible uniquement lorsqu'une saisie existe -->
+    <div id="zoneReprise" class="d-none zone-reprise">
         <strong>Une saisie précédente a été retrouvée.</strong>
 
         <p>
-          Vous pouvez reprendre le questionnaire là où vous l'avez interrompu.
+            Vous pouvez reprendre le questionnaire là où vous l'avez interrompu.
         </p>
 
         <div class="boutons-reprise">
+            <button
+                type="button"
+                id="boutonReprendre"
+                class="btn btn-primary"
+            >
+                Reprendre ma saisie
+            </button>
 
-          <button
-            type="button"
-            id="boutonReprendre"
-            class="btn btn-primary">
-            Reprendre ma saisie
-          </button>
-
-          <button
-            type="button"
-            id="boutonRecommencer"
-            class="btn btn-outline-secondary">
-            Recommencer
-          </button>
-
+            <button
+                type="button"
+                id="boutonRecommencer"
+                class="btn btn-outline-secondary"
+            >
+                Recommencer
+            </button>
         </div>
-
-      </div>
-
-
-      <div class="accueil-signature">
-
-        <p>Merci pour votre participation.</p>
-
-        <p>
-          <strong>
-            Pour l'équipe de l'EAFC de Dijon, Sandrine Fuster
-          </strong>
-        </p>
-
-      </div>
-
-
-      <button
-        type="button"
-        class="btn-commencer"
-        id="boutonCommencer">
-
-        Commencer le questionnaire
-
-        <span aria-hidden="true">→</span>
-
-      </button>
-
     </div>
 
-
-    <!-- COLONNE DROITE -->
-    <aside class="informations-cles">
-
-      <h2>Informations clés</h2>
-
-
-      <div class="info-cle">
-
-        <div class="info-icone info-bleu" aria-hidden="true">
-          ①
-        </div>
-
-        <div>
-          <strong>4 étapes</strong>
-          <span>Un questionnaire simple et rapide.</span>
-        </div>
-
-      </div>
-
-
-      <div class="info-cle">
-
-        <div class="info-icone info-rouge" aria-hidden="true">
-          ◷
-        </div>
-
-        <div>
-          <strong>Moins de 10 minutes</strong>
-          <span>Pour compléter l'ensemble du questionnaire.</span>
-        </div>
-
-      </div>
-
-
-      <div class="info-cle">
-
-        <div class="info-icone info-vert" aria-hidden="true">
-          ✓
-        </div>
-
-        <div>
-          <strong>Toutes les questions sont obligatoires.</strong>
-        </div>
-
-      </div>
-
-
-      <div class="info-cle">
-
-        <div class="info-icone info-orange" aria-hidden="true">
-          ↻
-        </div>
-
-       <div>
-  <strong>Votre saisie est enregistrée automatiquement.</strong>
-
-  <span>
-    Vous pouvez interrompre le questionnaire et le reprendre pendant 10 jours à compter de votre première saisie. Passé ce délai, votre saisie sera effacée et vous devrez recommencer le questionnaire.
-  </span>
 </div>
 
+
+    
+
+    <footer class="accueil-pied">
+      <div class="accueil-signature">
+        <p>Merci pour votre participation.</p>
+        <p><strong>Pour l'équipe de l'EAFC de Dijon, Sandrine Fuster</strong></p>
       </div>
 
-
-      <div class="info-cle">
-
-        <div class="info-icone info-violet" aria-hidden="true">
-          🔒
-        </div>
-
-        <div>
-          <strong>
-            Vos réponses ne seront transmises qu'après votre validation finale.
-          </strong>
-        </div>
-
+      <div class="accueil-publication">
+        <span aria-hidden="true">▥</span>
+        Une synthèse des réponses sera publiée sur l'espace Actualités du PIA
       </div>
-
-
-      <div class="info-cle">
-
-        <div class="info-icone info-bleu" aria-hidden="true">
-          1×
-        </div>
-
-        <div>
-          <strong>Merci de ne répondre qu'une seule fois</strong>
-
-          <span>
-            afin de permettre une analyse aussi représentative que possible.
-          </span>
-        </div>
-
-      </div>
-
-    </aside>
+    </footer>
 
   </div>
-
 </section>
+
 
 
     <!-- ===================================================== -->
@@ -464,28 +424,66 @@
 
         <h1>Domaines de formation et situations professionnelles</h1>
 
+        <div class="aide-situations">
+
+  <button
+    type="button"
+    id="boutonAstuceSituations"
+    class="bouton-astuce"
+    aria-expanded="false"
+    aria-controls="texteAstuceSituations">
+    
+  <svg
+    width="17"
+    height="17"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="#805600"
+    stroke-width="2.2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    aria-hidden="true">
+
+    <path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7c1.1.8 1.5 1.8 1.5 3.3h5c0-1.5.4-2.5 1.5-3.3A7 7 0 0 0 12 2Z"/>
+    <path d="M12 6v2M5 4 3.5 2.5M19 4l1.5-1.5"/>
+
+  </svg>
+
+  Astuce
+
+</button>
+  
+  <div
+    id="texteAstuceSituations"
+    class="texte-astuce d-none">
+
+    Vous pouvez sélectionner ou désélectionner librement
+    les domaines et les situations professionnelles
+    pour ajuster vos choix.
+
+  </div>
+
+</div>
+        
         <div class="consignes-etape3">
 
   <div class="consigne-etape3">
-    <span class="numero-consigne">1</span>
+
+      <span class="numero-consigne">1</span>
     <span>
       <strong>Choisissez un ou plusieurs domaines</strong>
-      qui correspondent à vos préoccupations professionnelles
+      En lien avec votre activité professionnelle
+      ou vos souhaits d'évolution.
     </span>
   </div>
 
   <div class="consigne-etape3">
     <span class="numero-consigne">2</span>
     <span>
-      <strong>Sélectionnez jusqu'à 5 situations</strong>
-      qui correspondent le mieux à vos questionnements ou difficultés
-    </span>
-  </div>
-
-  <div class="consigne-etape3">
-    <span class="numero-consigne">3</span>
-    <span>
-      <strong>Classez-les ensuite par ordre de priorité</strong>
+      <strong>Sélectionnez jusqu'à 5 situations professionnelles,
+      tous domaines confondus,</strong>
+      pour lesquelles vous rencontrez des difficultés
+      ou souhaitez développer vos compétences.
     </span>
   </div>
 
@@ -506,24 +504,66 @@
                 <!-- SITUATIONS -->
 
         <div id="zoneSituations"></div>
+
+<!-- AUTRE SITUATION PROFESSIONNELLE -->
+
+<div id="blocAutreSituation" class="question-bloc mt-3">
+
+  <label class="form-label">
+    <input
+      type="checkbox"
+      id="choixAutreSituation"
+    >
+    <strong>Autre situation professionnelle non proposée</strong>
+  </label>
+
+  <div id="zoneAutreSituation" class="d-none mt-2">
+
+   <label for="texteAutreSituation" class="form-label mb-0">
+  Décrivez une situation professionnelle que vous souhaitez
+  faire évoluer ou dans laquelle vous rencontrez des difficultés.
+</label>
+
+<div class="form-text mt-0">
+  Cette situation sera automatiquement classée en priorité 1.
+  Les demandes portant uniquement sur la prise en main
+  ou l'utilisation d'un logiciel métier (ex. : Op@le)
+  ne sont pas à renseigner ici.
+</div>
+
+<textarea
+  id="texteAutreSituation"
+  class="form-control"
+  rows="2"
+  maxlength="300"
+  placeholder="Décrivez votre situation professionnelle..."
+></textarea>
+
         
-        
-        <div id="erreurSituations" class="message-erreur d-none"></div>
+    </div>
+
+  </div>
+
+<div id="erreurSituations" class="message-erreur d-none"></div>
 
         <!-- CLASSEMENT DES PRIORITÉS -->
 
         <div id="zonePriorites" class="d-none mt-5">
 
-         <div class="entete-priorites">
-  <h2>Classement de vos priorités</h2>
+    <div class="entete-priorites">
 
-  <p>
-    Classez les situations de la plus importante à la moins importante
-  </p>
+    <div class="consigne-etape3">
+    <span class="numero-consigne">3</span>
+    <span>
+      <strong>Classez les situations sélectionnées par ordre de priorité.</strong>
+      Placez en premier celle qui vous paraît la plus importante.
+    </span>
+  </div>
+
 </div>
 
           <p class="petit-texte">
-            ☰ Déplacez les situations pour modifier leur ordre
+            ☰ Faites glisser les situations pour changer leur ordre de priorité
           </p>
 
           <div id="listePriorites"></div>
@@ -550,6 +590,8 @@
         </div>
 
       </div>
+
+    </div>
 
     </section>
 
@@ -594,6 +636,24 @@
 
           </div>
 
+         <!-- Raison de non-participation : affichée uniquement si Non -->
+<div id="zoneRaisonNonFormation" class="d-none mt-3">
+
+  <label for="raisonNonFormation">
+    Quelle est la principale raison pour laquelle vous n'avez pas participé
+    à une formation au cours des deux dernières années ?
+  </label>
+
+  <textarea
+    id="raisonNonFormation"
+    name="raisonNonFormation"
+    class="form-control"
+    rows="3"
+    placeholder="Précisez votre raison principale…"
+  ></textarea>
+
+</div> 
+
         </fieldset>
 
 
@@ -602,12 +662,9 @@
         <fieldset class="question-bloc">
 
           <legend>
-            Parmi les éléments suivants, qu'est-ce qui facilerait votre inscription et votre participation à une formation ?
-          </legend>
-
-          <p class="petit-texte">
-            Plusieurs réponses possibles
-          </p>
+  Parmi les éléments suivants, qu'est-ce qui faciliterait votre inscription et votre participation à une formation ?
+  <span class="petit-texte">Plusieurs réponses possibles</span>
+</legend>
 
           <div class="choix-vertical">
 
@@ -623,8 +680,8 @@
               <input
                 type="checkbox"
                 name="leviersEngagement"
-                value="Je peux adapter ma charge de travail pour dégager du temps pour me former">
-              Je peux adapter ma charge de travail pour dégager du temps pour me former
+                value="L'organisation de mon travail me permet de participer à des formations">
+              L'organisation de mon travail me permet de participer à des formations
             </label>
 
             <label>
@@ -663,9 +720,8 @@
               <input
                 type="checkbox"
                 name="leviersEngagement"
-                value="Les informations sur les formations proposées sont suffisamment complètes et accessibles">
-              Les informations sur les formations proposées sont suffisamment
-              complètes et accessibles, notamment objectif clair : je sais ce que la formation va m'apporter
+                value="Les informations sur les formations proposées sont claires et faciles à trouver">
+              Les informations sur les formations proposées sont claires et faciles à trouver
             </label>
 
             <label>
@@ -705,7 +761,7 @@
 
           <p>
             L'EAFC recherche des personnels ATSS souhaitant partager leur
-            expérience professionnelles, leurs compétences et contribuer à la formation de leurs pairs
+            expérience professionnelle, leurs compétences et contribuer à la formation de leurs pairs
           </p>
 
           <p>

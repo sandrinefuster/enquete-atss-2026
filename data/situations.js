@@ -11,13 +11,12 @@ const questionnaire = [
     titre: "📢 Communication professionnelle",
 
     situations: [
-
+    
         "Adapter ma communication à différents publics",
-        "Gérer des situations conflictuelles avec différents interlocuteurs",
+        "Gérer les situations conflictuelles dans mes échanges professionnels, à l’oral comme à l’écrit",
         "Participer ou animer efficacement une réunion",
         "Rédiger des écrits professionnels clairs et efficaces",
-        "Répondre à des usagers mécontents ou agressifs"
-
+        "Faire passer un message difficile ou sensible à un interlocuteur"
     ]
 
 },
@@ -46,10 +45,9 @@ const questionnaire = [
 
         "Gérer les interruptions fréquentes dans mon activité",
         "Mettre en place des outils de suivi et de pilotage de mon activité",
-        "Organiser efficacement ma charge de travail",
-        "Prioriser mon activité lorsque plusieurs demandes urgentes arrivent simultanément",
+        "Organiser et prioriser mon activité face à des demandes multiples ou urgentes",
+        "Assurer la continuité de l'activité en cas d'absence ou d'imprévu",
         "Sécuriser et formaliser les procédures de travail"
-
     ]
 
 },
@@ -77,11 +75,10 @@ const questionnaire = [
     situations: [
 
         "Accompagner le changement dans mon service",
+        "Prendre du recul sur mes pratiques et ajuster ma posture managériale",
         "Construire des indicateurs utiles au pilotage de mon activité",
-        "Exploiter les données pour aider à la prise de décision",
         "Gérer des tensions ou des situations difficiles au sein d'une équipe",
-        "Préparer une évolution professionnelle ou une prise de responsabilités"
-
+        "Conduire un entretien professionnel constructif"
     ]
 
 },
@@ -91,13 +88,12 @@ const questionnaire = [
     titre: "👥 Ressources humaines",
 
     situations: [
-
+        
         "Accompagner l'intégration d'un nouvel agent",
         "Accompagner les personnels dans leurs démarches administratives",
         "Appliquer la réglementation RH dans des situations complexes",
-        "Conduire un entretien professionnel",
-        "Gérer des situations individuelles sensibles"
-
+        "Fiabiliser et actualiser les données administratives des personnels",
+        "Accompagner un agent dans son parcours professionnel ou sa mobilité"
     ]
 
 }
